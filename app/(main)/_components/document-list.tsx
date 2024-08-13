@@ -17,11 +17,11 @@ interface DocumentListProps{
     data?:Doc<"documents">[];
     
 }
-export function  DocumentList({
+export const  DocumentList=({
     parentDocumentId,
     level=0
 
-}:DocumentListProps){
+}:DocumentListProps)=>{
 
     const params=useParams();
     const router=useRouter();
@@ -36,6 +36,7 @@ export function  DocumentList({
     const documents=useQuery(api.documents.getSidebar,{
       parentDocument:parentDocumentId  
     })
+
     const onRedirect=(documentId:string)=>{
         router.push(`'documents/${documentId}`);
     }
@@ -63,11 +64,11 @@ export function  DocumentList({
             level===0 && "hidden"
         )}>No pages inside</p>
         
-        {/* {documents.map(document=>(
-            <div key={document.id}>
+        {documents.map(document=>(
+            <div key={document._id}>
                 <Item
-                id={document.id}
-                onClick={()=>onRedirect(document.id)}
+                id={document._id}
+                onClick={()=>onRedirect(document._id)}
                 label={document.title}
                 icon={FileIcon}
                 documentIcon={document.icon}
@@ -83,7 +84,7 @@ export function  DocumentList({
                     level={level+1}/>
                 )}
             </div>
-        ))} */}
+        ))}
         </>
     )
 }
